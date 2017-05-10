@@ -39,13 +39,12 @@ class App extends Component {
     const { questions, currentQuestionIndex } = this.state;
     const { selectChoice } = this;
 
-    return (
-      <Container
-        question={questions[currentQuestionIndex]}
-        endMessage="Thank you!"
-        selectChoice={selectChoice}
-      />
-    );
+    return currentQuestionIndex === questions.length - 1
+      ? <Container
+          question={questions[currentQuestionIndex]}
+          selectChoice={selectChoice}
+        />
+      : <p>Thank you!</p>;
   }
 }
 
