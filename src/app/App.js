@@ -40,12 +40,21 @@ class App extends Component {
     const { selectChoice } = this;
     const questionsOver = currentQuestionIndex === questions.length;
 
-    return !questionsOver
-      ? <Container
-          question={questions[currentQuestionIndex]}
-          selectChoice={selectChoice}
-        />
-      : <p>Thank you!</p>;
+    return (
+      <div className="App">
+        <div className="App-header">
+          <h2>Project Insight</h2>
+        </div>
+        <div className="App-body">
+          {!questionsOver
+            ? <Container
+                question={questions[currentQuestionIndex]}
+                selectChoice={selectChoice}
+              />
+            : <p>Thank you!</p>}
+        </div>
+      </div>
+    );
   }
 }
 

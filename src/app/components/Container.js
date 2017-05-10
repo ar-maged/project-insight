@@ -10,10 +10,10 @@ const Container = ({ question, selectChoice }) => (
       <div>
         <p>{question.title}</p>
       </div>
-      <div style={{ overflow: 'hidden', clear: 'both' }}>
+      <div>
         <Selector />
       </div>
-      <div style={{ overflow: 'hidden', clear: 'both' }}>
+      <div>
         {question.choices.map((choice, index) => (
           <Choice
             key={index}
