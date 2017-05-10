@@ -21,11 +21,11 @@ const choiceSource = {
   },
 
   endDrag(props, monitor) {
-    const item = monitor.getItem();
     const dropResult = monitor.getDropResult();
+    const { index, selectChoice } = props;
 
     if (dropResult) {
-      window.alert(`You dropped ${item.title} into ${dropResult.name}!`);
+      selectChoice({ choiceIndex: index });
     }
   }
 };
