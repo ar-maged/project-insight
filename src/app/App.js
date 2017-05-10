@@ -9,7 +9,15 @@ class App extends Component {
   }
 
   render() {
-    return <Container />;
+    return (
+      <Container
+        currentQuestion={{
+          _id: '58d56a11e619fe7424bdd82c',
+          title: 'Are you a lecturer?',
+          choices: [{ title: 'Yes' }, { title: 'No' }]
+        }}
+      />
+    );
   }
 }
 
