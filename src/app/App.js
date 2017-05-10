@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container } from './ChoiceSelection';
+import { Container } from './components';
+import { dummyQuestions } from './mockdata';
 import './App.css';
 
 class App extends Component {
@@ -7,42 +8,42 @@ class App extends Component {
     super();
 
     this.state = {
-      currentQuestion: {
-        _id: '58d56a11e619fe7424bdd82c',
-        title: 'Are you a lecturer?',
-        choices: [
-          {
-            index: 0,
-            title: 'Yes'
-          },
-          {
-            index: 1,
-            title: 'No'
-          }
-        ]
-      },
-      currentChoice: {
-        questionId: null,
-        choiceIndex: null
-      }
+      questions: [],
+      choices: [],
+      currentQuestionIndex: 0
     };
   }
 
+  componentWillMount() {
+    this.setState({
+      questions: dummyQuestions
+    });
+  }
+
   selectChoice = ({ choiceIndex }) => {
+    const { questions, choices, currentQuestionIndex } = this.state;
+
     this.setState({
       ...this.state,
-      currentChoice: {
-        questionId: this.state.currentQuestion._id,
+
+      choices: choices.concat({
+        questionId: questions[currentQuestionIndex]._id,
         choiceIndex: choiceIndex
-      }
+      }),
+
+      currentQuestionIndex: currentQuestionIndex + 1
     });
   };
 
   render() {
+    const { questions, currentQuestionIndex } = this.state;
+    const { selectChoice } = this;
+
     return (
       <Container
-        question={this.state.currentQuestion}
-        selectChoice={this.selectChoice}
+        question={questions[currentQuestionIndex]}
+        endMessage="Thank you!"
+        selectChoice={selectChoice}
       />
     );
   }
