@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { DragSource } from 'react-dnd';
 import ItemTypes from './ItemTypes';
 import _ from 'lodash';
@@ -26,33 +25,17 @@ const boxSource = {
     const dropResult = monitor.getDropResult();
 
     if (dropResult) {
-      window.alert(
-        // eslint-disable-line no-alert
-        `You dropped ${item.name} into ${dropResult.name}!`
-      );
+      window.alert(`You dropped ${item.name} into ${dropResult.name}!`);
     }
   }
 };
 
-class Box extends Component {
-  static propTypes = {
-    connectDragSource: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired
-  };
-
-  render() {
-    const { isDragging, connectDragSource } = this.props;
-    const { name } = this.props;
-    const opacity = isDragging ? 0.4 : 1;
-
-    return connectDragSource(
-      <div style={{ ...style, opacity }}>
-        {name}
-      </div>
-    );
-  }
-}
+const Box = ({ name, isDragging, connectDragSource }) =>
+  connectDragSource(
+    <div style={{ ...style, opacity: isDragging ? 0.4 : 1 }}>
+      {name}
+    </div>
+  );
 
 export default _.flow(
   DragSource(ItemTypes.BOX, boxSource, (connect, monitor) => ({

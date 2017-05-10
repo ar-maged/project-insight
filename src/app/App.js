@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+import { Container } from './DustbinSingleTarget';
 import './App.css';
-
-import DustbinSingleTarget from './DustbinSingleTarget';
 
 class App extends Component {
   constructor() {
     super();
-
     this.state = {};
   }
 
   render() {
-    return <DustbinSingleTarget />;
+    return <Container />;
   }
 }
 
