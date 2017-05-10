@@ -16,7 +16,7 @@ const style = {
 const choiceSource = {
   beginDrag(props) {
     return {
-      name: props.name
+      title: props.title
     };
   },
 
@@ -25,15 +25,15 @@ const choiceSource = {
     const dropResult = monitor.getDropResult();
 
     if (dropResult) {
-      window.alert(`You dropped ${item.name} into ${dropResult.name}!`);
+      window.alert(`You dropped ${item.title} into ${dropResult.name}!`);
     }
   }
 };
 
-const Choice = ({ name, isDragging, connectDragSource }) =>
+const Choice = ({ title, isDragging, connectDragSource }) =>
   connectDragSource(
     <div style={{ ...style, opacity: isDragging ? 0.4 : 1 }}>
-      {name}
+      {title}
     </div>
   );
 

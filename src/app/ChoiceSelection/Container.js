@@ -15,7 +15,7 @@ const Container = ({ currentQuestion }) => (
       </div>
       <div style={{ overflow: 'hidden', clear: 'both' }}>
         {currentQuestion.choices.map((choice, index) => (
-          <Choice key={index} name={choice.title} />
+          <Choice key={index} title={choice.title} />
         ))}
       </div>
     </div>
