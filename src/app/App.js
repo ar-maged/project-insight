@@ -38,8 +38,9 @@ class App extends Component {
   render() {
     const { questions, currentQuestionIndex } = this.state;
     const { selectChoice } = this;
+    const questionsOver = currentQuestionIndex === questions.length - 1;
 
-    return currentQuestionIndex === questions.length - 1
+    return questionsOver
       ? <Container
           question={questions[currentQuestionIndex]}
           selectChoice={selectChoice}
