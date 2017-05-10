@@ -13,7 +13,7 @@ const style = {
   float: 'left'
 };
 
-const boxSource = {
+const choiceSource = {
   beginDrag(props) {
     return {
       name: props.name
@@ -30,7 +30,7 @@ const boxSource = {
   }
 };
 
-const Box = ({ name, isDragging, connectDragSource }) =>
+const Choice = ({ name, isDragging, connectDragSource }) =>
   connectDragSource(
     <div style={{ ...style, opacity: isDragging ? 0.4 : 1 }}>
       {name}
@@ -38,8 +38,8 @@ const Box = ({ name, isDragging, connectDragSource }) =>
   );
 
 export default _.flow(
-  DragSource(ItemTypes.BOX, boxSource, (connect, monitor) => ({
+  DragSource(ItemTypes.CHOICE, choiceSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   }))
-)(Box);
+)(Choice);

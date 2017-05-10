@@ -16,13 +16,13 @@ const style = {
   float: 'left'
 };
 
-const boxTarget = {
+const choiceTarget = {
   drop() {
-    return { name: 'Dustbin' };
+    return { name: 'Selector' };
   }
 };
 
-const Dustbin = ({ canDrop, isOver, connectDropTarget }) => {
+const Selector = ({ canDrop, isOver, connectDropTarget }) => {
   const isActive = canDrop && isOver;
 
   let backgroundColor = '#222';
@@ -34,15 +34,15 @@ const Dustbin = ({ canDrop, isOver, connectDropTarget }) => {
 
   return connectDropTarget(
     <div style={{ ...style, backgroundColor }}>
-      {isActive ? 'Release to drop' : 'Drag a box here'}
+      {isActive ? 'Release to drop' : 'Drag a choice here'}
     </div>
   );
 };
 
 export default _.flow(
-  DropTarget(ItemTypes.BOX, boxTarget, (connect, monitor) => ({
+  DropTarget(ItemTypes.CHOICE, choiceTarget, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
     canDrop: monitor.canDrop()
   }))
-)(Dustbin);
+)(Selector);
