@@ -58,7 +58,10 @@ class App extends Component {
                   question={questions[currentQuestionIndex]}
                   selectChoice={selectChoice}
                 />
-              : <p>Thank you!</p>}
+              : <div>
+                  <p>Your answer is successfully registered.</p>
+                  <p>Thank you!</p>
+                </div>}
           </div>
         </div>
       </MuiThemeProvider>
