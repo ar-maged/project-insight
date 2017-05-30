@@ -9,36 +9,35 @@ class App extends Component {
 
     this.state = {
       questions: [],
-      choices: [],
-      currentQuestionIndex: 0
+      choice: {},
+      currentQuestionIndex: 0,
+      done: false
     };
   }
 
   componentWillMount() {
     this.setState({
+      ...this.state,
       questions: dummyQuestions
     });
   }
 
   selectChoice = ({ choiceIndex }) => {
-    const { questions, choices, currentQuestionIndex } = this.state;
+    const { questions, currentQuestionIndex } = this.state;
 
     this.setState({
       ...this.state,
-
-      choices: choices.concat({
+      choice: {
         questionId: questions[currentQuestionIndex]._id,
         choiceIndex: choiceIndex
-      }),
-
-      currentQuestionIndex: currentQuestionIndex + 1
+      },
+      done: true
     });
   };
 
   render() {
-    const { questions, currentQuestionIndex } = this.state;
+    const { questions, currentQuestionIndex, done } = this.state;
     const { selectChoice } = this;
-    const questionsOver = currentQuestionIndex === questions.length;
 
     return (
       <div className="App">
@@ -46,7 +45,7 @@ class App extends Component {
           <h2>Project Insight</h2>
         </div>
         <div className="App-body">
-          {!questionsOver
+          {!done
             ? <Container
                 question={questions[currentQuestionIndex]}
                 selectChoice={selectChoice}
