@@ -1,7 +1,7 @@
 import React from 'react';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from './ItemTypes';
 import _ from 'lodash';
+import ItemTypes from './ItemTypes';
 
 const style = {
   height: '12rem',

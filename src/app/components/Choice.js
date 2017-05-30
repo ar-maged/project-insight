@@ -1,7 +1,7 @@
 import React from 'react';
 import { DragSource } from 'react-dnd';
-import ItemTypes from './ItemTypes';
 import _ from 'lodash';
+import ItemTypes from './ItemTypes';
 
 const style = {
   border: '1px dashed gray',
