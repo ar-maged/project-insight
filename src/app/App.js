@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import AppBar from 'material-ui/AppBar';
 import { Container } from './components';
 import { dummyQuestions } from './mockdata';
 import './App.css';
@@ -13,6 +16,8 @@ class App extends Component {
       currentQuestionIndex: 0,
       done: false
     };
+
+    injectTapEventPlugin();
   }
 
   componentWillMount() {
@@ -40,19 +45,23 @@ class App extends Component {
     const { selectChoice } = this;
 
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Project Insight</h2>
+      <MuiThemeProvider>
+        <div className="App">
+          <AppBar
+            title="Project Insight"
+            titleStyle={{ fontFamily: 'Special Elite' }}
+            showMenuIconButton={false}
+          />
+          <div className="App-body">
+            {!done
+              ? <Container
+                  question={questions[currentQuestionIndex]}
+                  selectChoice={selectChoice}
+                />
+              : <p>Thank you!</p>}
+          </div>
         </div>
-        <div className="App-body">
-          {!done
-            ? <Container
-                question={questions[currentQuestionIndex]}
-                selectChoice={selectChoice}
-              />
-            : <p>Thank you!</p>}
-        </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
