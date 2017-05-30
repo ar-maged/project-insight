@@ -13,7 +13,8 @@ const style = {
   textAlign: 'center',
   fontSize: '1rem',
   lineHeight: 'normal',
-  float: 'left'
+  float: 'left',
+  borderRadius: '1rem'
 };
 
 const choiceTarget = {
