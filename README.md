@@ -3,7 +3,7 @@
   <img src="https://avatars2.githubusercontent.com/u/25307599?v=3&s=400" width="80"/>
 </p>
 
-<h1 align="center">Project Insight (Client)</h1>
+<h1 align="center">Project Insight</h1>
 
 ## Usage
 
