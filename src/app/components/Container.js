@@ -19,6 +19,7 @@ const Container = ({ question, selectChoice }) => (
             key={index}
             index={index}
             title={choice.title}
+            votes={choice.votes}
             selectChoice={selectChoice}
           />
         ))}

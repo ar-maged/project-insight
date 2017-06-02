@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import { Container } from './components';
-import { dummyQuestions } from './mockdata';
+import { questions } from './data';
 import './App.css';
 
 class App extends Component {
@@ -12,36 +12,64 @@ class App extends Component {
 
     this.state = {
       questions: [],
-      choice: {},
-      currentQuestionIndex: 0,
-      done: false
+      currentQuestionIndex: 0
     };
 
     injectTapEventPlugin();
   }
 
   componentWillMount() {
+    const updatedQuestions = questions.map(question => ({
+      ...question,
+      choices: question.choices.map((choiceTitle, index) => ({
+        index,
+        title: choiceTitle,
+        votes: 0
+      }))
+    }));
+
     this.setState({
       ...this.state,
-      questions: dummyQuestions
+      questions: updatedQuestions
     });
   }
 
   selectChoice = ({ choiceIndex }) => {
     const { questions, currentQuestionIndex } = this.state;
 
+    const choices = questions[currentQuestionIndex].choices;
+    const choice = choices[choiceIndex];
+
+    const updatedChoice = {
+      ...choice,
+      votes: choice.votes + 1
+    };
+
+    const updatedChoices = choices.map((choice, index) => {
+      if (index === choiceIndex) {
+        return updatedChoice;
+      }
+      return choice;
+    });
+
+    const updatedQuestions = questions.map((question, index) => {
+      if (index === currentQuestionIndex) {
+        return {
+          ...question,
+          choices: updatedChoices
+        };
+      }
+      return question;
+    });
+
     this.setState({
       ...this.state,
-      choice: {
-        questionId: questions[currentQuestionIndex]._id,
-        choiceIndex: choiceIndex
-      },
-      done: true
+      questions: updatedQuestions
     });
   };
 
   render() {
-    const { questions, currentQuestionIndex, done } = this.state;
+    const { questions, currentQuestionIndex } = this.state;
     const { selectChoice } = this;
 
     return (
@@ -53,15 +81,10 @@ class App extends Component {
             showMenuIconButton={false}
           />
           <div className="App-body">
-            {!done
-              ? <Container
-                  question={questions[currentQuestionIndex]}
-                  selectChoice={selectChoice}
-                />
-              : <div>
-                  <p>Your answer is successfully registered.</p>
-                  <p>Thank you!</p>
-                </div>}
+            <Container
+              question={questions[currentQuestionIndex]}
+              selectChoice={selectChoice}
+            />
           </div>
         </div>
       </MuiThemeProvider>

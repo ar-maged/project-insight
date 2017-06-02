@@ -31,10 +31,11 @@ const choiceSource = {
   }
 };
 
-const Choice = ({ title, isDragging, connectDragSource }) =>
+const Choice = ({ title, votes, isDragging, connectDragSource }) =>
   connectDragSource(
     <div style={{ ...style, opacity: isDragging ? 0.4 : 1 }}>
-      {title}
+      <p>Title: {title}</p>
+      <p>Votes: {votes}</p>
     </div>
   );
 
