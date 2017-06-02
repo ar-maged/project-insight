@@ -2,34 +2,15 @@ import React from 'react';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Selector from './Selector';
-import Choice from './Choice';
+import Choices from './Choices';
 
-const Container = ({ question, selectChoice }) => (
+const Container = ({ title, choices, selectChoice }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <div>
-      <div>
-        <p>{question.title}</p>
-      </div>
+      <p>{title}</p>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Selector />
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          {question.choices.map((choice, index) => (
-            <Choice
-              key={index}
-              index={index}
-              title={choice.title}
-              color={choice.color}
-              votes={choice.votes}
-              selectChoice={selectChoice}
-            />
-          ))}
-        </div>
+        <Choices choices={choices} selectChoice={selectChoice} />
       </div>
     </div>
   </DragDropContextProvider>

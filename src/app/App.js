@@ -83,7 +83,8 @@ class App extends Component {
           />
           <div className="App-body">
             <Container
-              question={questions[currentQuestionIndex]}
+              title={questions[currentQuestionIndex].title}
+              choices={questions[currentQuestionIndex].choices}
               selectChoice={selectChoice}
             />
           </div>
