@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import { Container } from './components';
-import { questions } from './data';
+import { questions, colors } from './data';
 import './App.css';
 
 class App extends Component {
@@ -24,6 +24,7 @@ class App extends Component {
       choices: question.choices.map((choiceTitle, index) => ({
         index,
         title: choiceTitle,
+        color: colors.splice(Math.floor(Math.random() * colors.length), 1),
         votes: 0
       }))
     }));

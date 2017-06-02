@@ -1,17 +1,18 @@
 import React from 'react';
 import { DragSource } from 'react-dnd';
 import _ from 'lodash';
+import { Card, CardMedia, CardTitle } from 'material-ui/Card';
 import ItemTypes from './ItemTypes';
 
 const style = {
-  border: '1px dashed gray',
-  backgroundColor: 'white',
-  padding: '0.5rem 1rem',
+  width: '10rem',
   marginRight: '1.5rem',
-  marginBottom: '1.5rem',
-  cursor: 'move',
-  float: 'left',
-  borderRadius: '0.5rem'
+  marginLeft: '1.5rem',
+  cursor: 'move'
+};
+
+const titleStyle = {
+  fontFamily: 'Special Elite'
 };
 
 const choiceSource = {
@@ -31,11 +32,17 @@ const choiceSource = {
   }
 };
 
-const Choice = ({ title, votes, isDragging, connectDragSource }) =>
+const Choice = ({ title, color, votes, isDragging, connectDragSource }) =>
   connectDragSource(
-    <div style={{ ...style, opacity: isDragging ? 0.4 : 1 }}>
-      <p>Title: {title}</p>
-      <p>Votes: {votes}</p>
+    <div>
+      <Card style={{ ...style, opacity: isDragging ? 0.4 : 1 }}>
+        <CardMedia
+          overlay={<CardTitle title={votes} titleStyle={titleStyle} />}
+        >
+          <img src={color} role="presentation" />
+        </CardMedia>
+        <CardTitle title={title} titleStyle={titleStyle} />
+      </Card>
     </div>
   );
 
