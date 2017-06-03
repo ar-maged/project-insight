@@ -21,7 +21,7 @@ const Selector = ({ canDrop, isOver, connectDropTarget }) => {
   }
 
   return connectDropTarget(
-    <div style={{ ...styles.selector, backgroundColor }}>
+    <div style={{ ...styles.selector, ...styles.text, backgroundColor }}>
       {isActive ? 'Release to drop' : 'Drag a choice here'}
     </div>
   );

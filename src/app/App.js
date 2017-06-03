@@ -89,19 +89,17 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-        <div style={styles.text}>
+        <div>
           <AppBar
             title="Project Insight"
             titleStyle={styles.text}
             showMenuIconButton={false}
           />
-          <div style={styles.body}>
-            <Container
-              title={questions[currentQuestionIndex].title}
-              choices={questions[currentQuestionIndex].choices}
-              selectChoice={this.selectChoice}
-            />
-          </div>
+          <Container
+            title={questions[currentQuestionIndex].title}
+            choices={questions[currentQuestionIndex].choices}
+            selectChoice={this.selectChoice}
+          />
         </div>
       </MuiThemeProvider>
     );

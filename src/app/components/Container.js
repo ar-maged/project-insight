@@ -7,9 +7,9 @@ import styles from '../styles';
 
 const Container = ({ title, choices, selectChoice }) => (
   <DragDropContextProvider backend={HTML5Backend}>
-    <div>
-      <p>{title}</p>
-      <div style={styles.container}>
+    <div style={styles.container.outer}>
+      <p style={styles.text}>{title}</p>
+      <div style={styles.container.inner}>
         <Selector />
         <Choices choices={choices} selectChoice={selectChoice} />
       </div>

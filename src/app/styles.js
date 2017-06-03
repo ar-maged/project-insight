@@ -3,14 +3,16 @@ export default {
     fontFamily: 'Special Elite',
     textAlign: 'center'
   },
-  body: {
-    margin: 'auto',
-    width: '20%',
-    padding: '10px'
-  },
   container: {
-    display: 'flex',
-    flexDirection: 'column'
+    outer: {
+      margin: 'auto',
+      width: '20%',
+      padding: '10px'
+    },
+    inner: {
+      display: 'flex',
+      flexDirection: 'column'
+    }
   },
   selector: {
     height: '12rem',
