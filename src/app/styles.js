@@ -5,8 +5,8 @@ export default {
   },
   container: {
     outer: {
+      width: '50%',
       margin: 'auto',
-      width: '20%',
       padding: '10px'
     },
     inner: {
@@ -15,16 +15,15 @@ export default {
     }
   },
   selector: {
+    alignSelf: 'center',
     height: '12rem',
     width: '12rem',
     marginRight: '1.5rem',
     marginBottom: '1.5rem',
-    color: 'white',
     padding: '1rem',
-    textAlign: 'center',
+    color: 'white',
     fontSize: '1rem',
     lineHeight: 'normal',
-    float: 'left',
     borderRadius: '1rem'
   },
   choices: {
