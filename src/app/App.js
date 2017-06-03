@@ -86,7 +86,6 @@ class App extends Component {
 
   render() {
     const { questions, currentQuestionIndex } = this.state;
-    const { selectChoice } = this;
 
     return (
       <MuiThemeProvider>
@@ -100,7 +99,7 @@ class App extends Component {
             <Container
               title={questions[currentQuestionIndex].title}
               choices={questions[currentQuestionIndex].choices}
-              selectChoice={selectChoice}
+              selectChoice={this.selectChoice}
             />
           </div>
         </div>
