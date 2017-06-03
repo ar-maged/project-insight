@@ -19,21 +19,36 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const updatedQuestions = questions.map(question => ({
-      ...question,
-      choices: question.choices.map((choiceTitle, index) => ({
-        index,
-        title: choiceTitle,
-        color: colors.splice(Math.floor(Math.random() * colors.length), 1),
-        votes: 0
-      }))
-    }));
-
     this.setState({
       ...this.state,
-      questions: updatedQuestions
+      questions: questions.map(this.constructQuestion)
     });
   }
+
+  constructQuestion = question => {
+    const copyOfColors = [...colors];
+
+    return {
+      ...question,
+      choices: question.choices.map((choiceTitle, index) =>
+        this.constructChoice({
+          index,
+          title: choiceTitle,
+          color: this.removeRandomColor(copyOfColors)
+        })
+      )
+    };
+  };
+
+  constructChoice = ({ index, title, color }) => ({
+    index,
+    title,
+    color,
+    votes: 0
+  });
+
+  removeRandomColor = colors =>
+    colors.splice(Math.floor(Math.random() * colors.length), 1);
 
   selectChoice = ({ choiceIndex }) => {
     const { questions, currentQuestionIndex } = this.state;
@@ -85,7 +100,7 @@ class App extends Component {
             <Container
               title={questions[currentQuestionIndex].title}
               choices={questions[currentQuestionIndex].choices}
-              selectChoice={selectChoice}
+              selectChoice={this.selectChoice}
             />
           </div>
         </div>
