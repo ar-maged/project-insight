@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import { Container } from './components';
 import { questions, colors } from './data';
-import './App.css';
+import styles from './styles';
 
 class App extends Component {
   constructor() {
@@ -90,17 +90,17 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-        <div className="App">
+        <div style={styles.app}>
           <AppBar
             title="Project Insight"
-            titleStyle={{ fontFamily: 'Special Elite' }}
+            titleStyle={styles.app}
             showMenuIconButton={false}
           />
-          <div className="App-body">
+          <div style={styles.body}>
             <Container
               title={questions[currentQuestionIndex].title}
               choices={questions[currentQuestionIndex].choices}
-              selectChoice={this.selectChoice}
+              selectChoice={selectChoice}
             />
           </div>
         </div>

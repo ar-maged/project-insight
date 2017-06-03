@@ -1,14 +1,9 @@
 import React from 'react';
 import Choice from './Choice';
+import styles from '../styles';
 
 const Choices = ({ choices, selectChoice }) => (
-  <div
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}
-  >
+  <div style={styles.choices}>
     {choices.map((choice, index) => (
       <Choice
         key={index}

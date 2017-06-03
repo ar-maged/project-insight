@@ -3,17 +3,7 @@ import { DragSource } from 'react-dnd';
 import _ from 'lodash';
 import { Card, CardMedia, CardTitle } from 'material-ui/Card';
 import ItemTypes from './ItemTypes';
-
-const style = {
-  width: '10rem',
-  marginRight: '1.5rem',
-  marginLeft: '1.5rem',
-  cursor: 'move'
-};
-
-const titleStyle = {
-  fontFamily: 'Special Elite'
-};
+import styles from '../styles';
 
 const choiceSource = {
   beginDrag(props) {
@@ -35,13 +25,13 @@ const choiceSource = {
 const Choice = ({ title, color, votes, isDragging, connectDragSource }) =>
   connectDragSource(
     <div>
-      <Card style={{ ...style, opacity: isDragging ? 0.4 : 1 }}>
+      <Card style={{ ...styles.choice, opacity: isDragging ? 0.4 : 1 }}>
         <CardMedia
-          overlay={<CardTitle title={votes} titleStyle={titleStyle} />}
+          overlay={<CardTitle title={votes} titleStyle={styles.app} />}
         >
           <img src={color} role="presentation" />
         </CardMedia>
-        <CardTitle title={title} titleStyle={titleStyle} />
+        <CardTitle title={title} titleStyle={styles.app} />
       </Card>
     </div>
   );
