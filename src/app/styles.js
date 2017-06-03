@@ -1,5 +1,5 @@
 export default {
-  app: {
+  text: {
     fontFamily: 'Special Elite',
     textAlign: 'center'
   },

@@ -89,10 +89,10 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-        <div style={styles.app}>
+        <div style={styles.text}>
           <AppBar
             title="Project Insight"
-            titleStyle={styles.app}
+            titleStyle={styles.text}
             showMenuIconButton={false}
           />
           <div style={styles.body}>

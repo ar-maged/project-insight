@@ -27,11 +27,11 @@ const Choice = ({ title, color, votes, isDragging, connectDragSource }) =>
     <div>
       <Card style={{ ...styles.choice, opacity: isDragging ? 0.4 : 1 }}>
         <CardMedia
-          overlay={<CardTitle title={votes} titleStyle={styles.app} />}
+          overlay={<CardTitle title={votes} titleStyle={styles.text} />}
         >
           <img src={color} role="presentation" />
         </CardMedia>
-        <CardTitle title={title} titleStyle={styles.app} />
+        <CardTitle title={title} titleStyle={styles.text} />
       </Card>
     </div>
   );
