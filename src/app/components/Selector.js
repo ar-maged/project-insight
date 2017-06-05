@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
-import Radium, { StyleRoot } from 'radium';
+import Radium from 'radium';
 import ItemTypes from './ItemTypes';
 import styles from '../styles';
 
@@ -24,7 +24,7 @@ class Selector extends Component {
   componentWillMount() {
     this.setState({
       ...this.state,
-      intervalID: setInterval(this.triggerAnimation, 1000)
+      intervalID: setInterval(this.triggerAnimation, 250)
     });
   }
 
@@ -39,7 +39,7 @@ class Selector extends Component {
 
   triggerAnimation = () => {
     this.clearAnimation();
-    setTimeout(() => this.setAnimation(), 1000);
+    setTimeout(() => this.setAnimation(), 250);
   };
 
   render() {
@@ -60,14 +60,13 @@ class Selector extends Component {
         style={{
           ...styles.selector,
           ...styles.text,
+          ...animation,
           backgroundColor
         }}
       >
-        <StyleRoot>
-          <div style={{ ...animation }}>
-            {isActive ? 'Release to drop' : 'Drag a choice here'}
-          </div>
-        </StyleRoot>
+        <div>
+          {isActive ? 'Release to drop' : 'Drag a choice here'}
+        </div>
       </div>
     );
   }

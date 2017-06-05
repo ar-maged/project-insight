@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
+import Radium, { StyleRoot } from 'radium';
 import { Container } from './components';
 import { questions, colors } from './data';
 import styles from './styles';
@@ -89,21 +90,23 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-        <div>
-          <AppBar
-            title="Project Insight"
-            titleStyle={styles.text}
-            showMenuIconButton={false}
-          />
-          <Container
-            title={questions[currentQuestionIndex].title}
-            choices={questions[currentQuestionIndex].choices}
-            selectChoice={this.selectChoice}
-          />
-        </div>
+        <StyleRoot>
+          <div>
+            <AppBar
+              title="Project Insight"
+              titleStyle={styles.text}
+              showMenuIconButton={false}
+            />
+            <Container
+              title={questions[currentQuestionIndex].title}
+              choices={questions[currentQuestionIndex].choices}
+              selectChoice={this.selectChoice}
+            />
+          </div>
+        </StyleRoot>
       </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+export default Radium(App);
