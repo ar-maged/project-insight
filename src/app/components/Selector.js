@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
+import Radium, { StyleRoot } from 'radium';
 import ItemTypes from './ItemTypes';
 import styles from '../styles';
 
@@ -10,22 +11,65 @@ const choiceTarget = {
   }
 };
 
-const Selector = ({ canDrop, isOver, connectDropTarget }) => {
-  const isActive = canDrop && isOver;
+class Selector extends Component {
+  constructor() {
+    super();
 
-  let backgroundColor = '#222';
-  if (isActive) {
-    backgroundColor = 'darkgreen';
-  } else if (canDrop) {
-    backgroundColor = 'darkkhaki';
+    this.state = {
+      intervalID: 0,
+      animation: {}
+    };
   }
 
-  return connectDropTarget(
-    <div style={{ ...styles.selector, ...styles.text, backgroundColor }}>
-      {isActive ? 'Release to drop' : 'Drag a choice here'}
-    </div>
-  );
-};
+  componentWillMount() {
+    this.setState({
+      ...this.state,
+      intervalID: setInterval(this.triggerAnimation, 1000)
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalID);
+  }
+
+  clearAnimation = () => this.setState({ ...this.state, animation: {} });
+
+  setAnimation = () =>
+    this.setState({ ...this.state, animation: styles.animations.pulse });
+
+  triggerAnimation = () => {
+    this.clearAnimation();
+    setTimeout(() => this.setAnimation(), 1000);
+  };
+
+  render() {
+    const { canDrop, isOver, connectDropTarget } = this.props;
+    const isActive = canDrop && isOver;
+
+    let backgroundColor = '#222';
+    if (isActive) {
+      backgroundColor = 'darkgreen';
+    } else if (canDrop) {
+      backgroundColor = 'darkkhaki';
+    }
+
+    return connectDropTarget(
+      <div
+        style={{
+          ...styles.selector,
+          ...styles.text,
+          backgroundColor
+        }}
+      >
+        <StyleRoot>
+          <div style={{ ...this.state.animation }}>
+            {isActive ? 'Release to drop' : 'Drag a choice here'}
+          </div>
+        </StyleRoot>
+      </div>
+    );
+  }
+}
 
 export default _.flow(
   DropTarget(ItemTypes.CHOICE, choiceTarget, (connect, monitor) => ({
@@ -33,4 +77,4 @@ export default _.flow(
     isOver: monitor.isOver(),
     canDrop: monitor.canDrop()
   }))
-)(Selector);
+)(Radium(Selector));
