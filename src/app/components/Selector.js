@@ -44,7 +44,9 @@ class Selector extends Component {
 
   render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
+
     const isActive = canDrop && isOver;
+    const animation = canDrop ? this.state.animation : {};
 
     let backgroundColor = '#222';
     if (isActive) {
@@ -62,7 +64,7 @@ class Selector extends Component {
         }}
       >
         <StyleRoot>
-          <div style={{ ...this.state.animation }}>
+          <div style={{ ...animation }}>
             {isActive ? 'Release to drop' : 'Drag a choice here'}
           </div>
         </StyleRoot>
