@@ -3,7 +3,8 @@ import Radium from 'radium';
 
 export default {
   text: {
-    fontFamily: 'Special Elite',
+    fontFamily: 'Graduate',
+    fontWeight: 'bold',
     textAlign: 'center'
   },
   animations: {
