@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 import _ from 'lodash';
 import { Card, CardMedia, CardTitle } from 'material-ui/Card';
+import Radium from 'radium';
 import ItemTypes from './ItemTypes';
 import styles from '../styles';
 
@@ -14,17 +15,28 @@ const choiceSource = {
 
   endDrag(props, monitor) {
     const dropResult = monitor.getDropResult();
-    const { index, selectChoice } = props;
+    const { index, selectChoice, clearAnimated, setAnimated } = props;
 
     if (dropResult) {
       selectChoice({ choiceIndex: index });
+      setAnimated();
+      setTimeout(clearAnimated, 1000);
     }
   }
 };
 
-const Choice = ({ title, color, votes, isDragging, connectDragSource }) =>
-  connectDragSource(
-    <div>
+const Choice = ({
+  title,
+  color,
+  votes,
+  animated,
+  isDragging,
+  connectDragSource
+}) => {
+  const animation = animated ? styles.animations.bounceIn : {};
+
+  return connectDragSource(
+    <div style={animation}>
       <Card style={{ ...styles.choice, opacity: isDragging ? 0.4 : 1 }}>
         <CardMedia
           overlay={<CardTitle title={votes} titleStyle={styles.text} />}
@@ -35,10 +47,38 @@ const Choice = ({ title, color, votes, isDragging, connectDragSource }) =>
       </Card>
     </div>
   );
+};
 
-export default _.flow(
+const SuperChoice = _.flow(
   DragSource(ItemTypes.CHOICE, choiceSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   }))
-)(Choice);
+)(Radium(Choice));
+
+class UltimateChoice extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      animated: false
+    };
+  }
+
+  clearAnimated = () => this.setState({ animated: false });
+
+  setAnimated = () => this.setState({ animated: true });
+
+  render() {
+    return (
+      <SuperChoice
+        {...this.props}
+        animated={this.state.animated}
+        setAnimated={this.setAnimated}
+        clearAnimated={this.clearAnimated}
+      />
+    );
+  }
+}
+
+export default UltimateChoice;

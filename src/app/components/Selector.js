@@ -39,7 +39,7 @@ class Selector extends Component {
 
   triggerAnimation = () => {
     this.clearAnimation();
-    setTimeout(() => this.setAnimation(), 250);
+    setTimeout(this.setAnimation, 250);
   };
 
   render() {

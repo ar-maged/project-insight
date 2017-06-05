@@ -1,4 +1,4 @@
-import { pulse } from 'react-animations';
+import { pulse, bounceIn } from 'react-animations';
 import Radium from 'radium';
 
 export default {
@@ -10,6 +10,10 @@ export default {
     pulse: {
       animation: 'x 0.5s',
       animationName: Radium.keyframes(pulse, 'pulse')
+    },
+    bounceIn: {
+      animation: 'x 1s',
+      animationName: Radium.keyframes(bounceIn, 'bounceIn')
     }
   },
   container: {
