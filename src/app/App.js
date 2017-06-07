@@ -3,8 +3,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import Radium, { StyleRoot } from 'radium';
+import Datastore from 'nedb';
+import Promise from 'bluebird';
 import { Container } from './components';
 import { questions, colors } from './data';
+import settings from './config/settings';
 import styles from './styles';
 
 class App extends Component {
@@ -12,19 +15,40 @@ class App extends Component {
     super();
 
     this.state = {
-      questions: [],
+      questions: questions.map(this.constructQuestion),
       currentQuestionIndex: 0
     };
+
+    this.persistence = {};
 
     injectTapEventPlugin();
   }
 
-  componentWillMount() {
-    this.setState({
-      ...this.state,
-      questions: questions.map(this.constructQuestion)
+  async componentWillMount() {
+    this.persistence = new Datastore({
+      filename: settings.persistence.filename,
+      autoload: settings.persistence.autoload
     });
+
+    Promise.promisifyAll(this.persistence);
+
+    if (settings.persistence.wipe) {
+      await this.persistence.removeAsync({});
+    }
+
+    this.rehydrateState();
   }
+
+  rehydrateState = async () => {
+    const count = await this.persistence.countAsync({});
+
+    if (count === 0) {
+      await this.persistence.insertAsync({});
+    } else {
+      const savedState = await this.persistence.findOneAsync({});
+      this.setState(savedState);
+    }
+  };
 
   constructQuestion = question => {
     const copyOfColors = [...colors];
@@ -79,10 +103,13 @@ class App extends Component {
       return question;
     });
 
-    this.setState({
-      ...this.state,
-      questions: updatedQuestions
-    });
+    this.setState(
+      {
+        ...this.state,
+        questions: updatedQuestions
+      },
+      () => this.persistence.updateAsync({}, { $set: this.state })
+    );
   };
 
   render() {
