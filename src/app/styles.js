@@ -39,7 +39,10 @@ export default {
     color: 'white',
     fontSize: '1.25rem',
     lineHeight: 'normal',
-    borderRadius: '1rem'
+    borderRadius: '1rem',
+    gestures: {
+      width: '15rem'
+    }
   },
   choices: {
     display: 'flex',

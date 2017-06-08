@@ -3,6 +3,8 @@ import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
 import Radium from 'radium';
 import ItemTypes from './ItemTypes';
+import jazzHand from '../images/jazz-hand.png';
+import clenchedFist from '../images/clenched-fist.png';
 import styles from '../styles';
 
 const choiceTarget = {
@@ -66,6 +68,10 @@ class Selector extends Component {
       >
         <div>
           {isActive ? 'Release to drop' : 'Drag a choice here'}
+          <img
+            src={isActive ? jazzHand : clenchedFist}
+            style={styles.selector.gestures}
+          />
         </div>
       </div>
     );
