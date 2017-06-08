@@ -3,6 +3,7 @@ import { DragSource } from 'react-dnd';
 import _ from 'lodash';
 import { Card, CardMedia, CardTitle } from 'material-ui/Card';
 import Radium from 'radium';
+import { MouseHoveringDetection } from 'react-detect-mouse-over';
 import ItemTypes from './ItemTypes';
 import styles from '../styles';
 
@@ -25,36 +26,44 @@ const choiceSource = {
   }
 };
 
-const Choice = ({
-  title,
-  color,
-  votes,
-  animated,
-  isDragging,
-  connectDragSource
-}) => {
-  const animation = animated ? styles.animations.bounceIn : {};
+class Choice extends Component {
+  componentWillReceiveProps(nextProps) {
+    const { isHoveringOver } = nextProps;
+  }
 
-  return connectDragSource(
-    <div style={animation}>
-      <Card style={{ ...styles.choice, opacity: isDragging ? 0.4 : 1 }}>
-        <CardMedia
-          overlay={<CardTitle title={votes} titleStyle={styles.text} />}
-        >
-          <img src={color} role="presentation" />
-        </CardMedia>
-        <CardTitle title={title} titleStyle={styles.text} />
-      </Card>
-    </div>
-  );
-};
+  render() {
+    const {
+      title,
+      color,
+      votes,
+      animated,
+      isDragging,
+      connectDragSource
+    } = this.props;
+
+    const animation = animated ? styles.animations.bounceIn : {};
+
+    return connectDragSource(
+      <div style={animation}>
+        <Card style={{ ...styles.choice, opacity: isDragging ? 0.4 : 1 }}>
+          <CardMedia
+            overlay={<CardTitle title={votes} titleStyle={styles.text} />}
+          >
+            <img src={color} role="presentation" />
+          </CardMedia>
+          <CardTitle title={title} titleStyle={styles.text} />
+        </Card>
+      </div>
+    );
+  }
+}
 
 const SuperChoice = _.flow(
   DragSource(ItemTypes.CHOICE, choiceSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   }))
-)(Radium(Choice));
+)(MouseHoveringDetection(Radium(Choice)));
 
 class UltimateChoice extends Component {
   constructor() {

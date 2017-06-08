@@ -4408,6 +4408,13 @@ react-animations@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/react-animations/-/react-animations-0.1.0.tgz#519b6f4fe0f90b49fbfd4fcd73d978c5087130b1"
 
+react-detect-mouse-over@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-detect-mouse-over/-/react-detect-mouse-over-1.1.0.tgz#967207bb35348cc02d736fc0973c59caf1e9b39b"
+  dependencies:
+    react "^15.4.2"
+    react-dom "^15.4.2"
+
 react-dev-utils@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-0.4.2.tgz#ba6fae581fe945a2fc402e9b27c71fda4f62f6a1"
