@@ -5,7 +5,7 @@ import Selector from './Selector';
 import Choices from './Choices';
 import styles from '../styles';
 
-const Container = ({ title, choices, selectChoice }) => (
+const Container = ({ title, choices, selectChoice }) =>
   <DragDropContextProvider backend={HTML5Backend}>
     <div style={styles.container.outer}>
       <p style={styles.text}>{title}</p>
@@ -14,7 +14,6 @@ const Container = ({ title, choices, selectChoice }) => (
         <Choices choices={choices} selectChoice={selectChoice} />
       </div>
     </div>
-  </DragDropContextProvider>
-);
+  </DragDropContextProvider>;
 
 export default Container;

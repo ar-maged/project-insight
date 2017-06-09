@@ -1,13 +1,28 @@
+import { pulse, bounceIn } from 'react-animations';
+import Radium from 'radium';
+
 export default {
   text: {
-    fontFamily: 'Special Elite',
+    fontFamily: 'Graduate',
+    fontWeight: 'bold',
     textAlign: 'center'
+  },
+  animations: {
+    pulse: {
+      animation: 'x 0.5s',
+      animationName: Radium.keyframes(pulse, 'pulse')
+    },
+    bounceIn: {
+      animation: 'x 1s',
+      animationName: Radium.keyframes(bounceIn, 'bounceIn')
+    }
   },
   container: {
     outer: {
-      width: '50%',
+      width: '90%',
       margin: 'auto',
-      padding: '10px'
+      padding: '10px',
+      fontSize: '2.5rem'
     },
     inner: {
       display: 'flex',
@@ -17,14 +32,17 @@ export default {
   selector: {
     alignSelf: 'center',
     height: '12rem',
-    width: '12rem',
+    width: '15rem',
     marginRight: '1.5rem',
     marginBottom: '1.5rem',
     padding: '1rem',
     color: 'white',
-    fontSize: '1rem',
+    fontSize: '1.25rem',
     lineHeight: 'normal',
-    borderRadius: '1rem'
+    borderRadius: '1rem',
+    gestures: {
+      width: '15rem'
+    }
   },
   choices: {
     display: 'flex',

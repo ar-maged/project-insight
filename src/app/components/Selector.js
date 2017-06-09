@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
+import Radium from 'radium';
 import ItemTypes from './ItemTypes';
+import jazzHand from '../images/jazz-hand.png';
+import clenchedFist from '../images/clenched-fist.png';
 import styles from '../styles';
 
 const choiceTarget = {
@@ -10,22 +13,70 @@ const choiceTarget = {
   }
 };
 
-const Selector = ({ canDrop, isOver, connectDropTarget }) => {
-  const isActive = canDrop && isOver;
+class Selector extends Component {
+  constructor() {
+    super();
 
-  let backgroundColor = '#222';
-  if (isActive) {
-    backgroundColor = 'darkgreen';
-  } else if (canDrop) {
-    backgroundColor = 'darkkhaki';
+    this.state = {
+      intervalID: 0,
+      animation: {}
+    };
   }
 
-  return connectDropTarget(
-    <div style={{ ...styles.selector, ...styles.text, backgroundColor }}>
-      {isActive ? 'Release to drop' : 'Drag a choice here'}
-    </div>
-  );
-};
+  componentWillMount() {
+    this.setState({
+      ...this.state,
+      intervalID: setInterval(this.triggerAnimation, 250)
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalID);
+  }
+
+  clearAnimation = () => this.setState({ ...this.state, animation: {} });
+
+  setAnimation = () =>
+    this.setState({ ...this.state, animation: styles.animations.pulse });
+
+  triggerAnimation = () => {
+    this.clearAnimation();
+    setTimeout(this.setAnimation, 250);
+  };
+
+  render() {
+    const { canDrop, isOver, connectDropTarget } = this.props;
+
+    const isActive = canDrop && isOver;
+    const animation = canDrop ? this.state.animation : {};
+
+    let backgroundColor = '#222';
+    if (isActive) {
+      backgroundColor = 'darkgreen';
+    } else if (canDrop) {
+      backgroundColor = 'darkkhaki';
+    }
+
+    return connectDropTarget(
+      <div
+        style={{
+          ...styles.selector,
+          ...styles.text,
+          ...animation,
+          backgroundColor
+        }}
+      >
+        <div>
+          {isActive ? 'Release to drop' : 'Drag a choice here'}
+          <img
+            src={isActive ? jazzHand : clenchedFist}
+            style={styles.selector.gestures}
+          />
+        </div>
+      </div>
+    );
+  }
+}
 
 export default _.flow(
   DropTarget(ItemTypes.CHOICE, choiceTarget, (connect, monitor) => ({
@@ -33,4 +84,4 @@ export default _.flow(
     isOver: monitor.isOver(),
     canDrop: monitor.canDrop()
   }))
-)(Selector);
+)(Radium(Selector));
